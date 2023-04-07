@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
 import { CssBaseline } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';

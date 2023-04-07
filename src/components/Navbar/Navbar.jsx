@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 import { useTheme } from '@mui/styles';
 import useStyles from './navStyles';
 
-import Sidebar from '../Sidebar/Sidebar';
+import { Sidebar } from '../route';
 
 function Navbar() {
   const classes = useStyles();
