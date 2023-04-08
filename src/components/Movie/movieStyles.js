@@ -17,7 +17,7 @@ export default makeStyles((theme) => ({
     textDecoration: 'none',
   },
 
-  links: {
+  link: {
     alignItems: 'center',
     fontWeight: 'bolder',
     textDecoration: 'none',

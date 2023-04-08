@@ -15,7 +15,7 @@ function Movies() {
   if (isFetching) {
     return (
       <Box display="flex" justifyContent="center">
-        <CircularProgress size="4rem" />
+        <CircularProgress size="4rem" sx={{ bgcolor: '#D9008D' }} />
       </Box>
     );
   }

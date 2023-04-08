@@ -18,7 +18,7 @@ function App() {
       <CssBaseline />
       <Navbar />
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+        <div className={classes.toolkit} />
         <Routes>
           <Route path="/" element={<Movies />} />
           <Route path="/actors" element={<Actors />} />
@@ -31,3 +31,5 @@ function App() {
 }
 
 export default App;
+
+
