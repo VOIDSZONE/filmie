@@ -38,4 +38,8 @@ export default makeStyles((theme) => ({
   drawePaper: {
     width: drawerWidth,
   },
+
+  searchBar: {
+    alignContent: 'center',
+  },
 }));

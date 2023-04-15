@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 
 function Movies() {
-  const { data, error, isFetching } = useGetMoviesQuery();
+  const { data, error, isFetching } = useGetMoviesQuery({});
 
   if (isFetching) {
     return (
