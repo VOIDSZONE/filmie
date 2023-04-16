@@ -18,16 +18,22 @@ import lightLogo from '../../assets/images/lightlogo.png';
 import redLogo from '../../assets/images/darklogo.png';
 import { useGetGenresQuery } from '../../services/TMDB.js';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
+
 function Sidebar() {
   const categories = [
     { label: 'Popular', value: 'popular' },
     { label: 'Top Rated', value: 'top_rated' },
     { label: 'Upcoming', value: 'upcoming' },
   ];
-
+  const { genreIdOrCategoryName } = useSelector(
+    (state) => state.currentGenreOrCategory
+  );
   const theme = useTheme();
   const classes = useStyles();
   const { data, isFetching } = useGetGenresQuery();
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -45,7 +51,10 @@ function Sidebar() {
         <ListSubheader>Categories</ListSubheader>
         {categories.map(({ label, value }) => (
           <Link to="/" key={value} className={classes.links}>
-            <ListItem onClick={() => {}} button>
+            <ListItem
+              onClick={() => dispatch(selectGenreOrCategory(value))}
+              button
+            >
               <ListItemIcon>
                 <img
                   alt={label}
@@ -71,7 +80,10 @@ function Sidebar() {
         ) : (
           data.genres.map(({ name, id }) => (
             <Link to="/" key={id} className={classes.links}>
-              <ListItem onClick={() => {}} button>
+              <ListItem
+                onClick={() => dispatch(selectGenreOrCategory(id))}
+                button
+              >
                 <ListItemIcon>
                   <img
                     alt={name}

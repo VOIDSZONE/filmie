@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MoviesList } from '../route';
 import { useGetMoviesQuery } from '../../services/TMDB';
+import { useSelector } from 'react-redux';
+import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
 
 import {
   Box,
@@ -10,7 +12,14 @@ import {
 } from '@mui/material';
 
 function Movies() {
-  const { data, error, isFetching } = useGetMoviesQuery({});
+  const [page, setPage] = useState(1);
+  const { genreIdOrCategoryName } = useSelector(
+    (state) => state.currentGenreOrCategory
+  );
+  const { data, error, isFetching } = useGetMoviesQuery({
+    genreIdOrCategoryName,
+    page,
+  });
 
   if (isFetching) {
     return (
