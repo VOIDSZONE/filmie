@@ -10,7 +10,7 @@ import { Menu, Brightness4, Brightness7 } from '@mui/icons-material';
 import { useTheme } from '@mui/styles';
 import useStyles from './navStyles';
 
-import { Sidebar } from '../route';
+import { Sidebar, Search } from '../route';
 
 function Navbar() {
   const classes = useStyles();
@@ -38,10 +38,10 @@ function Navbar() {
           <IconButton color="inherit" sx={{ ml: 1 }} onClick={() => {}}>
             {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
-          <div className={classes.searchBar}>{!isMobile && 'Search.....'}</div>
+          <div className={classes.searchBar}>{!isMobile && <Search />}</div>
 
           <div />
-          {isMobile && 'Search.....'}
+          {isMobile && <Search />}
         </Toolbar>
       </AppBar>
 
