@@ -22,7 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Movies />} />
           <Route path="/actors" element={<Actors />} />
-          <Route path="/movies/:id" element={<MoviesInformation />} />
+          <Route path="/movie/:id" element={<MoviesInformation />} />
           <Route path="/profile/:id" element={<Profile />} />
         </Routes>
       </main>
@@ -31,5 +31,3 @@ function App() {
 }
 
 export default App;
-
-
