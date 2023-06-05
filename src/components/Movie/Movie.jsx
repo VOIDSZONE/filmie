@@ -9,7 +9,7 @@ const Movie = ({ movie, index }) => {
 
   return (
     <Grid item xs={12} sm={6} md={4} lg={3} xl={2} className={classes.movie}>
-      <Grow in key={index} timeout={(index + 1) * 500}>
+      <Grow in key={index} timeout={(index + 1) * 300}>
         <Link to={`/movie/${movie.id}`} className={classes.link}>
           <img
             alt={movie.title}

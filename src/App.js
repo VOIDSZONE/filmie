@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { CssBaseline } from '@mui/material';
 import { Routes, Route } from 'react-router-dom';
 import useStyles from './useStyles';
@@ -7,11 +7,14 @@ import {
   Movies,
   MoviesInformation,
   Navbar,
-  Profile,
 } from './components/route';
+import useAlan from './components/Alan';
 
 function App() {
   const classes = useStyles();
+  const alanBtnContainer = useRef();
+
+  useAlan();
 
   return (
     <div className={classes.root}>
@@ -21,11 +24,11 @@ function App() {
         <div className={classes.toolkit} />
         <Routes>
           <Route path="/" element={<Movies />} />
-          <Route path="/actors" element={<Actors />} />
+          <Route path="/actors/:id" element={<Actors />} />
           <Route path="/movie/:id" element={<MoviesInformation />} />
-          <Route path="/profile/:id" element={<Profile />} />
         </Routes>
       </main>
+      <div ref={alanBtnContainer} />
     </div>
   );
 }

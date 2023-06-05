@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Modal,
   Typography,
@@ -15,25 +15,30 @@ import {
   Movie as MovieIcon,
   Theaters,
   Language,
-  PlusOne,
-  Favorite,
-  FavoriteBorderOutlined,
-  Remove,
   ArrowBack,
 } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
-import { useGetMovieQuery } from '../../services/TMDB';
+
+import {
+  useGetMovieQuery,
+  useGetRecommendationsQuery,
+} from '../../services/TMDB';
 import useStyles from './movieInfoStyles';
 import genreIcons from '../../assets/genres';
 import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
+import { MoviesList } from '../route';
 
 function MoviesInformation() {
   const id = useParams();
   const { data, isFetching, error } = useGetMovieQuery(id);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+
+  const { data: recommendations, isFetching: isRecommendationsFetching } =
+    useGetRecommendationsQuery(id);
 
   if (isFetching) {
     return (
@@ -48,10 +53,15 @@ function MoviesInformation() {
       <Link to="/">Something has gone wrong - Go Back</Link>
     </Box>;
   }
-  console.log(data);
+
   return (
     <Grid container className={classes.containerSpaceAround}>
-      <Grid item sm={12} lg={4}>
+      <Grid
+        item
+        sm={12}
+        lg={4}
+        style={{ display: 'flex', marginBottom: '30px' }}
+      >
         <img
           className={classes.poster}
           alt={data?.title}
@@ -79,10 +89,7 @@ function MoviesInformation() {
             </Typography>
           </Box>
           <Typography variant="h6" align="center" gutterBottom>
-            {data?.runtime}min
-            {data?.spoken_languages.length > 0
-              ? `/ ${data?.spoken_languages[0].name}`
-              : ''}
+            {data?.runtime}min | Language: {data?.spoken_languages[0].name}
           </Typography>
         </Grid>
         <Grid item className={classes.genresContainer}>
@@ -169,7 +176,11 @@ function MoviesInformation() {
                 >
                   IMDB
                 </Button>
-                <Button onClick={() => {}} href="#" endIcon={<Theaters />}>
+                <Button
+                  onClick={() => setOpen(true)}
+                  href="#"
+                  endIcon={<Theaters />}
+                >
                   Trailer
                 </Button>
                 <Button
@@ -191,6 +202,35 @@ function MoviesInformation() {
           </div>
         </Grid>
       </Grid>
+
+      <Box marginTop="5rem" width="100%">
+        <Typography variant="h3" gutterBottom align="center">
+          Movies You Might Also Like
+        </Typography>
+        {recommendations ? (
+          <MoviesList movies={recommendations} noOfMovies={12} />
+        ) : (
+          <Box>Sorry, nothing was found.</Box>
+        )}
+      </Box>
+
+      <Modal
+        closeAfterTransition
+        className={classes.modal}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        {data?.videos?.results?.length > 0 && (
+          <iframe
+            title="Trailer"
+            autoplay
+            className={classes.video}
+            frameBorder="0"
+            src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
+            allow="autoplay"
+          />
+        )}
+      </Modal>
     </Grid>
   );
 }

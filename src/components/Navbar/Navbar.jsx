@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   AppBar,
   IconButton,
@@ -10,6 +10,8 @@ import { Menu, Brightness4, Brightness7 } from '@mui/icons-material';
 import { useTheme } from '@mui/styles';
 import useStyles from './navStyles';
 
+import { ColorModeContext } from '../../utils/ToggleColorMode';
+
 import { Sidebar, Search } from '../route';
 
 function Navbar() {
@@ -19,9 +21,12 @@ function Navbar() {
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const colorMode = useContext(ColorModeContext);
+
   return (
     <>
-      <AppBar position="sticky" sx={{ bgcolor: '#D9008D' }}>
+      {/* <AppBar position="fixed" sx={{ bgcolor: '#D9008D' }}> */}
+      <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
           {isMobile && (
             <IconButton
@@ -35,7 +40,11 @@ function Navbar() {
             </IconButton>
           )}
 
-          <IconButton color="inherit" sx={{ ml: 1 }} onClick={() => {}}>
+          <IconButton
+            color="inherit"
+            sx={{ ml: 1 }}
+            onClick={colorMode.toggleColorMode}
+          >
             {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
           </IconButton>
           <div className={classes.searchBar}>{!isMobile && <Search />}</div>

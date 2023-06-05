@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Divider,
   List,
@@ -21,7 +21,7 @@ import { useGetGenresQuery } from '../../services/TMDB.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
 
-function Sidebar() {
+function Sidebar({setMobileOpen}) {
   const categories = [
     { label: 'Popular', value: 'popular' },
     { label: 'Top Rated', value: 'top_rated' },
@@ -34,6 +34,10 @@ function Sidebar() {
   const classes = useStyles();
   const { data, isFetching } = useGetGenresQuery();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setMobileOpen(false)
+}, [genreIdOrCategoryName])  
 
   return (
     <>
